@@ -1,0 +1,140 @@
+{
+  "United States": {
+    "By Blade Category": {
+      "Razor slitting blades (primary)": {
+        "Single-edge": {},
+        "Double-edge": {}
+      }
+    },
+    "By Blade Material": {},
+    "By Price Tier": {},
+    "By Application": {
+      "Sheeting & Cross-Cutting": {
+        "Web sheeting (sheeter knives)": {},
+        "Guillotine cutting (guillotine knives)": {},
+        "Stack cutting (stack cutter knives)": {}
+      },
+      "Die Cutting & Trim Operations": {
+        "Edge trim removal blades": {},
+        "Waste matrix removal blades": {},
+        "Kiss-cut support / trim assist blades": {}
+      },
+      "Manual & Semi-Automated Converting Support": {
+        "Roll change trimming blades": {},
+        "Sample prep / lab cutting blades": {},
+        "QA/inspection cutting blades": {}
+      }
+    },
+    "By End-Use Industry": {},
+    "By Sales Channel": {},
+    "By Region": {
+      "North America": {
+        "United States": {}
+      },
+      "Europe": {
+        "Germany": {},
+        "Italy": {},
+        "UK": {},
+        "Rest of Europe": {}
+      },
+      "Asia": {
+        "Japan": {},
+        "South Korea": {},
+        "China": {},
+        "Rest of Asia": {}
+      }
+    }
+  },
+  "Europe": {
+    "By Blade Category": {
+      "Razor slitting blades (primary)": {
+        "Single-edge": {},
+        "Double-edge": {}
+      }
+    },
+    "By Blade Material": {},
+    "By Price Tier": {},
+    "By Application": {
+      "Sheeting & Cross-Cutting": {
+        "Web sheeting (sheeter knives)": {},
+        "Guillotine cutting (guillotine knives)": {},
+        "Stack cutting (stack cutter knives)": {}
+      },
+      "Die Cutting & Trim Operations": {
+        "Edge trim removal blades": {},
+        "Waste matrix removal blades": {},
+        "Kiss-cut support / trim assist blades": {}
+      },
+      "Manual & Semi-Automated Converting Support": {
+        "Roll change trimming blades": {},
+        "Sample prep / lab cutting blades": {},
+        "QA/inspection cutting blades": {}
+      }
+    },
+    "By End-Use Industry": {},
+    "By Sales Channel": {},
+    "By Region": {
+      "North America": {
+        "United States": {}
+      },
+      "Europe": {
+        "Germany": {},
+        "Italy": {},
+        "UK": {},
+        "Rest of Europe": {}
+      },
+      "Asia": {
+        "Japan": {},
+        "South Korea": {},
+        "China": {},
+        "Rest of Asia": {}
+      }
+    }
+  },
+  "Asia": {
+    "By Blade Category": {
+      "Razor slitting blades (primary)": {
+        "Single-edge": {},
+        "Double-edge": {}
+      }
+    },
+    "By Blade Material": {},
+    "By Price Tier": {},
+    "By Application": {
+      "Sheeting & Cross-Cutting": {
+        "Web sheeting (sheeter knives)": {},
+        "Guillotine cutting (guillotine knives)": {},
+        "Stack cutting (stack cutter knives)": {}
+      },
+      "Die Cutting & Trim Operations": {
+        "Edge trim removal blades": {},
+        "Waste matrix removal blades": {},
+        "Kiss-cut support / trim assist blades": {}
+      },
+      "Manual & Semi-Automated Converting Support": {
+        "Roll change trimming blades": {},
+        "Sample prep / lab cutting blades": {},
+        "QA/inspection cutting blades": {}
+      }
+    },
+    "By End-Use Industry": {},
+    "By Sales Channel": {},
+    "By Region": {
+      "North America": {
+        "United States": {}
+      },
+      "Europe": {
+        "Germany": {},
+        "Italy": {},
+        "UK": {},
+        "Rest of Europe": {}
+      },
+      "Asia": {
+        "Japan": {},
+        "South Korea": {},
+        "China": {},
+        "Rest of Asia": {}
+      }
+    }
+  }
+}
