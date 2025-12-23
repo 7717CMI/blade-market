@@ -1,8 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-import { ChevronDown, ChevronUp } from 'lucide-react'
-
 interface CustomerData {
   sNo: number
   customerName: string
@@ -441,47 +438,12 @@ const sampleCustomerData: CustomerData[] = [
   }
 ]
 
-interface PrepositionProps {
-  title: string
-  isOpen: boolean
-  onToggle: () => void
-  children: React.ReactNode
-}
-
-function Preposition({ title, isOpen, onToggle, children }: PrepositionProps) {
-  return (
-    <div className="border border-gray-200 rounded-lg mb-4">
-      <button
-        onClick={onToggle}
-        className="w-full flex items-center justify-between px-6 py-4 bg-white hover:bg-gray-50 rounded-lg transition-colors"
-      >
-        <span className="text-lg font-semibold text-black">{title}</span>
-        {isOpen ? (
-          <ChevronUp className="h-5 w-5 text-gray-500" />
-        ) : (
-          <ChevronDown className="h-5 w-5 text-gray-500" />
-        )}
-      </button>
-      {isOpen && (
-        <div className="px-2 pb-4 bg-white rounded-b-lg">
-          {children}
-        </div>
-      )}
-    </div>
-  )
-}
-
 interface CustomerIntelligenceDatabaseProps {
   title?: string
   height?: number
 }
 
 export default function CustomerIntelligenceDatabase({ title, height = 600 }: CustomerIntelligenceDatabaseProps) {
-  const [openPreposition, setOpenPreposition] = useState<number | null>(1)
-
-  const togglePreposition = (num: number) => {
-    setOpenPreposition(openPreposition === num ? null : num)
-  }
 
   // Preposition 1 Table - Customer Information + Contact Details
   const renderPreposition1Table = () => (
@@ -565,14 +527,7 @@ export default function CustomerIntelligenceDatabase({ title, height = 600 }: Cu
   return (
     <div className="w-full">
       <h2 className="text-xl font-bold text-black mb-6">Customer Intelligence Database</h2>
-
-      <Preposition
-        title="Customer Intelligence Database Table"
-        isOpen={openPreposition === 1}
-        onToggle={() => togglePreposition(1)}
-      >
-        {renderPreposition1Table()}
-      </Preposition>
+      {renderPreposition1Table()}
     </div>
   )
 }
