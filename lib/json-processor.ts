@@ -673,9 +673,6 @@ async function processSegmentTypeAsync(
   
   // Helper function to extract segments from a data source
   const extractSegmentsFromSource = async (sourceData: RawJsonData, sourceName: string) => {
-    // Special handling for "By Region" segment type - use geography names as parent hierarchy
-    const isRegionSegmentType = segmentType === 'By Region' || segmentType === 'By State' || segmentType === 'By Country'
-
     for (let geoIdx = 0; geoIdx < geographies.length; geoIdx++) {
       const geography = geographies[geoIdx]
       if (sourceData[geography]?.[segmentType]) {
@@ -695,31 +692,9 @@ async function processSegmentTypeAsync(
           }
         }
 
-        // For "By Region" segment type, build hierarchy using geography as parent
-        if (isRegionSegmentType && geography !== 'Global') {
-          // Add geography as a parent segment item
-          if (!segmentItems.includes(geography)) {
-            segmentItems.push(geography)
-          }
-          if (!hierarchy[geography]) {
-            hierarchy[geography] = []
-          }
-
-          // Extract countries/regions under this geography
-          structurePaths.forEach(({ path: pathArray }) => {
-            const segmentPath = pathArray.slice(segmentTypeIndex + 1)
-            // First item in segmentPath is the country/region name (e.g., "U.S.")
-            if (segmentPath.length > 0 && segmentPath[0] && segmentPath[0].trim() !== '') {
-              const countryOrRegion = segmentPath[0]
-              // Add as child of the geography only (don't add to root)
-              if (!hierarchy[geography].includes(countryOrRegion)) {
-                hierarchy[geography].push(countryOrRegion)
-              }
-              // Don't add countries as separate hierarchy keys - they should only be children
-              // This prevents them from appearing at root level in the cascade filter
-            }
-          })
-        } else {
+        // Use standard hierarchy building for ALL segment types including "By Region"
+        // This properly builds the hierarchy from the JSON structure
+        {
           // Standard hierarchy building for non-region segment types
           // Build segment items and hierarchy from structure (not just paths with data)
           structurePaths.forEach(({ path: pathArray }) => {

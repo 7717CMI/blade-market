@@ -562,98 +562,44 @@ export function D3BubbleChartIndependent({ title, height = 500 }: BubbleChartPro
         const isByStateSegmentType = activeFilters.segmentType === 'By State'
         const isByCountrySegmentType = activeFilters.segmentType === 'By Country'
 
-        if (isByRegionSegmentType) {
-          // Group records by their parent geography (region)
-          const regionGroups = new Map<string, typeof filteredRecords>()
-          const mainRegions = ['North America', 'Europe', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa']
+        if (isByRegionSegmentType || isByStateSegmentType || isByCountrySegmentType) {
+          // SPECIAL CASE: For "By Region", "By State", and "By Country" segment types
+          // Show each segment (country/state/sub-region) as an individual bubble
+          // This allows users to see Germany, Italy, UK, Rest of Europe when Europe + By Region is selected
 
-          filteredRecords.forEach(record => {
-            // Use the record's geography as the grouping key (this is the parent region)
-            const region = record.geography
-            if (region && mainRegions.includes(region)) {
-              if (!regionGroups.has(region)) {
-                regionGroups.set(region, [])
-              }
-              regionGroups.get(region)!.push(record)
-            }
-          })
-
-          console.log('🌍 Aggregating By Region to main regions:', [...regionGroups.keys()])
-
-          // Create aggregated records for each main region
-          const aggregatedRecords: typeof filteredRecords = []
-
-          regionGroups.forEach((childRecords, regionName) => {
-            // Aggregate time series from all children (countries) in this region
-            const aggregatedTimeSeries: { [year: string]: number } = {}
-            childRecords.forEach(record => {
-              Object.entries(record.time_series).forEach(([year, value]) => {
-                aggregatedTimeSeries[year] = (aggregatedTimeSeries[year] || 0) + (value as number)
-              })
-            })
-
-            // Create aggregated record for the region
-            const aggregatedRecord = {
-              ...childRecords[0],
-              geography: regionName,
-              segment: regionName, // Use region name as segment for display
-              time_series: aggregatedTimeSeries,
-              is_aggregated: true
-            }
-            aggregatedRecords.push(aggregatedRecord as any)
-
-            console.log('🌍 Aggregated region:', {
-              regionName,
-              countriesFound: childRecords.length,
-              countries: childRecords.map(r => r.segment)
-            })
-          })
-
-          filteredRecords = aggregatedRecords
-          console.log('🌍 After regional aggregation:', {
-            recordsAfterAggregation: filteredRecords.length,
-            regions: [...new Set(filteredRecords.map(r => r.segment))]
-          })
-        } else if (isByStateSegmentType || isByCountrySegmentType) {
-          // SPECIAL CASE: For "By State" and "By Country" segment types
-          // These have segments that represent states/countries (e.g., "Northeast U.S.", "Midwest U.S.")
-          // Don't aggregate - show each state/country segment as an individual bubble
-
-          console.log('🗺️ Processing By State/Country segment type:', {
+          console.log('🌍 Processing By Region/State/Country segment type:', {
             segmentType: activeFilters.segmentType,
             recordsCount: filteredRecords.length,
             uniqueSegments: [...new Set(filteredRecords.map(r => r.segment))],
             uniqueGeographies: [...new Set(filteredRecords.map(r => r.geography))]
           })
 
-          // For By State, each segment IS the state (Northeast U.S., Midwest U.S., etc.)
-          // No aggregation needed - just use the segments directly
-          // The records should already be at the correct level from filterData
+          // No aggregation needed - show each segment as individual bubble
+          // The segments are the countries/sub-regions (Germany, Italy, UK, Rest of Europe, etc.)
 
-          // If no records found, it might be because filterData filtered them out
-          // In that case, let's try to find records with matching segment_type
-          if (filteredRecords.length === 0) {
-            const dataset = activeFilters.dataType === 'value'
-              ? (data.data.value?.geography_segment_matrix || [])
-              : (data.data.volume?.geography_segment_matrix || [])
+          // Filter out parent-level segments if children exist to avoid duplicate counting
+          // e.g., if we have "Europe" and also "Germany", "Italy", etc., only show the children
+          const segmentCounts = new Map<string, number>()
+          filteredRecords.forEach(r => {
+            const count = segmentCounts.get(r.segment) || 0
+            segmentCounts.set(r.segment, count + 1)
+          })
 
-            // Try to find records with the By State segment type
-            const stateRecords = dataset.filter((r: any) =>
-              r.segment_type === activeFilters.segmentType
-            )
+          // Keep only leaf segments (those that appear in the hierarchy as children)
+          // If a segment is both a parent and has children data, prefer showing children
+          const mainRegions = ['United States', 'Europe', 'Asia', 'North America', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa']
+          const hasChildSegments = filteredRecords.some(r => !mainRegions.includes(r.segment))
 
-            console.log('🗺️ By State fallback search:', {
-              foundRecords: stateRecords.length,
-              segments: [...new Set(stateRecords.map((r: any) => r.segment))]
-            })
-
-            if (stateRecords.length > 0) {
-              filteredRecords = stateRecords
+          if (hasChildSegments) {
+            // Filter to show only child segments (Germany, Italy, etc.) not parent regions
+            const childRecords = filteredRecords.filter(r => !mainRegions.includes(r.segment))
+            if (childRecords.length > 0) {
+              filteredRecords = childRecords
             }
           }
 
-          console.log('🗺️ After By State/Country processing:', {
-            recordsCount: filteredRecords.length,
+          console.log('🌍 After By Region processing:', {
+            recordsAfterFilter: filteredRecords.length,
             segments: [...new Set(filteredRecords.map(r => r.segment))]
           })
         } else {

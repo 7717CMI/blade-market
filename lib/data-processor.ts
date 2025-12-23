@@ -172,7 +172,7 @@ export function filterData(
       // When user selects "North America" + "By Form", we need Global's By Form data
       if (!geoMatch && record.geography === 'Global') {
         // Check if any selected geography is a regional geography (not Global itself)
-        const regionalGeographies = ['North America', 'Europe', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa']
+        const regionalGeographies = ['United States', 'Europe', 'Asia', 'North America', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa']
         const hasRegionalSelection = filters.geographies.some(g => regionalGeographies.includes(g))
         if (hasRegionalSelection && !filters.geographies.includes('Global')) {
           geoMatch = true
@@ -289,7 +289,7 @@ export function filterData(
           // the selected "segment" could be a geography name (North America) or a country name (U.S.)
           // Support mixed selections - some geography names and some country names
           if (isRegionalSegmentType) {
-            const regionalGeographies = ['North America', 'Europe', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa', 'Global']
+            const regionalGeographies = ['United States', 'Europe', 'Asia', 'North America', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa', 'Global']
 
             // Check if this record matches ANY of the selected segments
             // Each selection can be either a geography name or a segment/country name
@@ -932,7 +932,7 @@ export function prepareGroupedBarData(
         } else if (isRegionalSegmentType && hasUserSelectedSegments) {
           // SPECIAL CASE: For regional segment types with explicit selections,
           // each selected segment becomes its own bar
-          const regionalGeographies = ['North America', 'Europe', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa', 'Global']
+          const regionalGeographies = ['United States', 'Europe', 'Asia', 'North America', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa', 'Global']
 
           // Find which selected segment this record matches
           let matchedSelection: string | null = null
@@ -990,7 +990,7 @@ export function prepareGroupedBarData(
           // If this is Global data and regional geographies are selected,
           // map Global to each selected geography (for segment types only available at Global level)
           if (record.geography === 'Global' && !geographies.includes('Global')) {
-            const regionalGeographies = ['North America', 'Europe', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa']
+            const regionalGeographies = ['United States', 'Europe', 'Asia', 'North America', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa']
             const selectedRegionals = geographies.filter(g => regionalGeographies.includes(g))
             if (selectedRegionals.length > 0) {
               // Realistic regional market share distribution
@@ -1204,7 +1204,7 @@ export function prepareLineChartData(
         // If this is Global data and regional geographies are selected,
         // map Global to each selected geography (for segment types only available at Global level)
         if (record.geography === 'Global' && !filters.geographies.includes('Global')) {
-          const regionalGeographies = ['North America', 'Europe', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa']
+          const regionalGeographies = ['United States', 'Europe', 'Asia', 'North America', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa']
           const selectedRegionals = filters.geographies.filter(g => regionalGeographies.includes(g))
           if (selectedRegionals.length > 0) {
             // Realistic regional market share distribution
@@ -1748,7 +1748,7 @@ export function prepareIntelligentMultiLevelData(
   }
 
   // Check if we need Global-to-regional mapping
-  const regionalGeographies = ['North America', 'Europe', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa']
+  const regionalGeographies = ['United States', 'Europe', 'Asia', 'North America', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa']
   const hasRegionalSelection = geographies.some(g => regionalGeographies.includes(g))
   const hasOnlyGlobalRecords = records.every(r => r.geography === 'Global')
   const needsGlobalMapping = viewMode === 'geography-mode' && hasRegionalSelection && hasOnlyGlobalRecords && !geographies.includes('Global')
@@ -1780,7 +1780,7 @@ export function prepareIntelligentMultiLevelData(
     // 2. Country/state names (e.g., U.S., Canada, Germany) - Level 2+ selections
     // 3. Mixed - some geography names and some country names
     if (isRegionalSegmentType && hasExplicitLevel1Selection) {
-      const regionalGeographies = ['North America', 'Europe', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa', 'Global']
+      const regionalGeographies = ['United States', 'Europe', 'Asia', 'North America', 'Asia Pacific', 'Latin America', 'Middle East', 'Africa', 'Global']
 
       // For regional segment types, each selection should become its own bar
       // Check if this record matches ANY of the selected segments
