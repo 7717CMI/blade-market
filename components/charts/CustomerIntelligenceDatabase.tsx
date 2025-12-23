@@ -489,7 +489,7 @@ export default function CustomerIntelligenceDatabase({ title, height = 600 }: Cu
       <table className="min-w-full border-collapse">
         <thead>
           <tr>
-            <th colSpan={8} className="bg-[#FFFFCC] border border-gray-300 px-3 py-2 text-center text-sm font-semibold text-black">
+            <th colSpan={9} className="bg-[#FFFFCC] border border-gray-300 px-3 py-2 text-center text-sm font-semibold text-black">
               Customer Information
             </th>
             <th colSpan={5} className="bg-[#E6CCE6] border border-gray-300 px-3 py-2 text-center text-sm font-semibold text-black">
@@ -497,6 +497,7 @@ export default function CustomerIntelligenceDatabase({ title, height = 600 }: Cu
             </th>
           </tr>
           <tr className="bg-gray-100">
+            <th className="bg-[#CCE5FF] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black whitespace-nowrap">Sr. No.</th>
             <th className="bg-[#CCE5FF] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black whitespace-nowrap">Customer Name</th>
             <th className="bg-[#CCE5FF] border border-gray-300 px-3 py-2 text-left text-xs font-semibold text-black min-w-[150px]">
               <div>Customer Type</div>
@@ -536,6 +537,7 @@ export default function CustomerIntelligenceDatabase({ title, height = 600 }: Cu
         <tbody>
           {sampleCustomerData.map((customer, index) => (
             <tr key={customer.sNo} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+              <td className="border border-gray-300 px-3 py-2 text-sm text-black text-center">{customer.sNo}</td>
               <td className="border border-gray-300 px-3 py-2 text-sm text-black">{customer.customerName}</td>
               <td className="border border-gray-300 px-3 py-2 text-sm text-black">{customer.customerType}</td>
               <td className="border border-gray-300 px-3 py-2 text-sm text-black">{customer.buyingCenters}</td>
@@ -565,7 +567,7 @@ export default function CustomerIntelligenceDatabase({ title, height = 600 }: Cu
       <h2 className="text-xl font-bold text-black mb-6">Customer Intelligence Database</h2>
 
       <Preposition
-        title="Preposition 1 - Basic"
+        title="Customer Intelligence Database Table"
         isOpen={openPreposition === 1}
         onToggle={() => togglePreposition(1)}
       >

@@ -215,6 +215,14 @@ export default function DashboardPage() {
         <div className="mb-6">
           <GlobalKPICards />
         </div>
+
+        {/* Demo Data Note */}
+        <div className="mb-6 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+          <p className="text-sm text-amber-800">
+            <span className="font-semibold">Note:</span> The data used in the dashboard is demo data. No real-world blade data is related to this.
+          </p>
+        </div>
+
         <div className="grid grid-cols-12 gap-6">
           {/* Sidebar - Enhanced Filter Panel */}
           <aside className={`transition-all duration-300 ${
